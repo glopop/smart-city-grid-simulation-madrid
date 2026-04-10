@@ -174,11 +174,6 @@ utilities worldwide. Provides physically validated power flow at distribution
 level. The IEEE 33-bus feeder file was constructed from Baran & Wu 1989
 published data as no stable OpenDSS-formatted version exists publicly.
 
-**PuLP over Gurobi:**
-PuLP with CBC is open-source and sufficient for this problem size
-(up to 8 binary EV variables and 3 binary DC variables in high stress).
-Gurobi is a drop-in replacement via PuLP's solver interface for larger problems.
-
 **Quasi-static over transient simulation:**
 15-minute timesteps are appropriate for urban planning timescales and
 computationally feasible for parallel execution. Transient simulation
@@ -190,7 +185,7 @@ making scenario-parallel execution the natural and efficient strategy.
 Spatial decomposition of the IEEE 33-bus feeder would require significant
 restructuring of the OpenDSS integration without meaningful benefit at this scale.
 
-**Quantum layer — designed only, not implemented:**
+**Quantum layer is designed only, not implemented:**
 The QUBO formulation is designed at the architectural level for future
 QAOA-based benchmarking against the PuLP classical baseline.
 No Qiskit code has been written. All quantum language in the report
