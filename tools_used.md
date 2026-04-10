@@ -53,7 +53,6 @@
 ---
 
 ## Scenario Definitions
-# Corrected from tools_used.md v1 — matches report Table 2 and simulation_results.csv
 
 | Scenario | EV Hubs | Data Centres | EV Base MW | DC Base MW | Surge Prob | Weather | Seed |
 |----------|---------|--------------|------------|------------|------------|---------|------|
