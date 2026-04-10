@@ -1,0 +1,101 @@
+! IEEE 33-Bus Radial Distribution Test Feeder
+! Source: Baran and Wu (1989), IEEE Transactions on Power Delivery
+! Base voltage: 12.66 kV, Base MVA: 100
+! Total load: 3715 kW, 2300 kVAr
+
+Clear
+
+New Circuit.IEEE33Bus
+~ basekv=12.66
+~ pu=1.05
+~ phases=3
+~ bus1=Bus1
+~ Isc3=100000
+~ Isc1=100000
+
+! ── LINES ──
+! Format: New Line.LineXY bus1=X bus2=Y length=Z units=km r1=R x1=X normamps=A
+New Line.L1_2   phases=3 bus1=Bus1  bus2=Bus2  length=1 units=km r1=0.0922 x1=0.0470 normamps=400
+New Line.L2_3   phases=3 bus1=Bus2  bus2=Bus3  length=1 units=km r1=0.4930 x1=0.2511 normamps=400
+New Line.L3_4   phases=3 bus1=Bus3  bus2=Bus4  length=1 units=km r1=0.3660 x1=0.1864 normamps=400
+New Line.L4_5   phases=3 bus1=Bus4  bus2=Bus5  length=1 units=km r1=0.3811 x1=0.1941 normamps=400
+New Line.L5_6   phases=3 bus1=Bus5  bus2=Bus6  length=1 units=km r1=0.8190 x1=0.7070 normamps=400
+New Line.L6_7   phases=3 bus1=Bus6  bus2=Bus7  length=1 units=km r1=0.1872 x1=0.6188 normamps=400
+New Line.L7_8   phases=3 bus1=Bus7  bus2=Bus8  length=1 units=km r1=1.7114 x1=1.2351 normamps=400
+New Line.L8_9   phases=3 bus1=Bus8  bus2=Bus9  length=1 units=km r1=1.0300 x1=0.7400 normamps=400
+New Line.L9_10  phases=3 bus1=Bus9  bus2=Bus10 length=1 units=km r1=1.0440 x1=0.7400 normamps=400
+New Line.L10_11 phases=3 bus1=Bus10 bus2=Bus11 length=1 units=km r1=0.1966 x1=0.0650 normamps=400
+New Line.L11_12 phases=3 bus1=Bus11 bus2=Bus12 length=1 units=km r1=0.3744 x1=0.1238 normamps=400
+New Line.L12_13 phases=3 bus1=Bus12 bus2=Bus13 length=1 units=km r1=1.4680 x1=1.1550 normamps=400
+New Line.L13_14 phases=3 bus1=Bus13 bus2=Bus14 length=1 units=km r1=0.5416 x1=0.7129 normamps=400
+New Line.L14_15 phases=3 bus1=Bus14 bus2=Bus15 length=1 units=km r1=0.5910 x1=0.5260 normamps=400
+New Line.L15_16 phases=3 bus1=Bus15 bus2=Bus16 length=1 units=km r1=0.7463 x1=0.5450 normamps=400
+New Line.L16_17 phases=3 bus1=Bus16 bus2=Bus17 length=1 units=km r1=1.2890 x1=1.7210 normamps=400
+New Line.L17_18 phases=3 bus1=Bus17 bus2=Bus18 length=1 units=km r1=0.7320 x1=0.5740 normamps=400
+New Line.L2_19  phases=3 bus1=Bus2  bus2=Bus19 length=1 units=km r1=0.1640 x1=0.1565 normamps=400
+New Line.L19_20 phases=3 bus1=Bus19 bus2=Bus20 length=1 units=km r1=1.5042 x1=1.3554 normamps=400
+New Line.L20_21 phases=3 bus1=Bus20 bus2=Bus21 length=1 units=km r1=0.4095 x1=0.4784 normamps=400
+New Line.L21_22 phases=3 bus1=Bus21 bus2=Bus22 length=1 units=km r1=0.7089 x1=0.9373 normamps=400
+New Line.L3_23  phases=3 bus1=Bus3  bus2=Bus23 length=1 units=km r1=0.4512 x1=0.3083 normamps=400
+New Line.L23_24 phases=3 bus1=Bus23 bus2=Bus24 length=1 units=km r1=0.8980 x1=0.7091 normamps=400
+New Line.L24_25 phases=3 bus1=Bus24 bus2=Bus25 length=1 units=km r1=0.8960 x1=0.7011 normamps=400
+New Line.L6_26  phases=3 bus1=Bus6  bus2=Bus26 length=1 units=km r1=0.2030 x1=0.1034 normamps=400
+New Line.L26_27 phases=3 bus1=Bus26 bus2=Bus27 length=1 units=km r1=0.2842 x1=0.1447 normamps=400
+New Line.L27_28 phases=3 bus1=Bus27 bus2=Bus28 length=1 units=km r1=1.0590 x1=0.9337 normamps=400
+New Line.L28_29 phases=3 bus1=Bus28 bus2=Bus29 length=1 units=km r1=0.8042 x1=0.7006 normamps=400
+New Line.L29_30 phases=3 bus1=Bus29 bus2=Bus30 length=1 units=km r1=0.5075 x1=0.2585 normamps=400
+New Line.L30_31 phases=3 bus1=Bus30 bus2=Bus31 length=1 units=km r1=0.9744 x1=0.9630 normamps=400
+New Line.L31_32 phases=3 bus1=Bus31 bus2=Bus32 length=1 units=km r1=0.3105 x1=0.3619 normamps=400
+New Line.L32_33 phases=3 bus1=Bus32 bus2=Bus33 length=1 units=km r1=0.3410 x1=0.5302 normamps=400
+
+! ── LOADS ──
+! Base loads from Baran and Wu (1989), scaled for high-density urban simulation
+! EV hub loads injected at Bus18 (end of main feeder, commercial zone)
+! Data center loads injected at Bus33 (end of lateral, industrial zone)
+! Background loads at remaining buses represent existing urban demand
+
+New Load.Load2  phases=3 bus1=Bus2  kv=12.66 kW=20  kvar=12  model=1
+New Load.Load3  phases=3 bus1=Bus3  kv=12.66 kW=18  kvar=8  model=1
+New Load.Load4  phases=3 bus1=Bus4  kv=12.66 kW=12  kvar=8  model=1
+New Load.Load5  phases=3 bus1=Bus5  kv=12.66 kW=12  kvar=6  model=1
+New Load.Load6  phases=3 bus1=Bus6  kv=12.66 kW=12  kvar=4  model=1
+New Load.Load7  phases=3 bus1=Bus7  kv=12.66 kW=40  kvar=20 model=1
+New Load.Load8  phases=3 bus1=Bus8  kv=12.66 kW=200  kvar=100 model=1
+New Load.Load9  phases=3 bus1=Bus9  kv=12.66 kW=24  kvar=8  model=1
+New Load.Load10 phases=3 bus1=Bus10 kv=12.66 kW=60   kvar=20  model=1
+New Load.Load11 phases=3 bus1=Bus11 kv=12.66 kW=9   kvar=6  model=1
+New Load.Load12 phases=3 bus1=Bus12 kv=12.66 kW=12  kvar=7  model=1
+New Load.Load13 phases=3 bus1=Bus13 kv=12.66 kW=60   kvar=35  model=1
+New Load.Load14 phases=3 bus1=Bus14 kv=12.66 kW=48  kvar=32  model=1
+New Load.Load15 phases=3 bus1=Bus15 kv=12.66 kW=12  kvar=2  model=1
+New Load.Load16 phases=3 bus1=Bus16 kv=12.66 kW=60   kvar=20  model=1
+New Load.Load17 phases=3 bus1=Bus17 kv=12.66 kW=60   kvar=20  model=1
+New Load.Load18 phases=3 bus1=Bus18 kv=12.66 kW=90   kvar=40  model=1
+New Load.Load19 phases=3 bus1=Bus19 kv=12.66 kW=90   kvar=40  model=1
+New Load.Load20 phases=3 bus1=Bus20 kv=12.66 kW=90   kvar=40  model=1
+New Load.Load21 phases=3 bus1=Bus21 kv=12.66 kW=90   kvar=40  model=1
+New Load.Load22 phases=3 bus1=Bus22 kv=12.66 kW=90   kvar=40  model=1
+New Load.Load23 phases=3 bus1=Bus23 kv=12.66 kW=90   kvar=50  model=1
+New Load.Load24 phases=3 bus1=Bus24 kv=12.66 kW=42  kvar=20 model=1
+New Load.Load25 phases=3 bus1=Bus25 kv=12.66 kW=420  kvar=200 model=1
+New Load.Load26 phases=3 bus1=Bus26 kv=12.66 kW=12  kvar=5  model=1
+New Load.Load27 phases=3 bus1=Bus27 kv=12.66 kW=60   kvar=25  model=1
+New Load.Load28 phases=3 bus1=Bus28 kv=12.66 kW=60   kvar=20  model=1
+New Load.Load29 phases=3 bus1=Bus29 kv=12.66 kW=120  kvar=70  model=1
+New Load.Load30 phases=3 bus1=Bus30 kv=12.66 kW=40  kvar=120 model=1
+New Load.Load31 phases=3 bus1=Bus31 kv=12.66 kW=30  kvar=14  model=1
+New Load.Load32 phases=3 bus1=Bus32 kv=12.66 kW=84  kvar=40 model=1
+New Load.Load33 phases=3 bus1=Bus33 kv=12.66 kW=24  kvar=16  model=1
+
+! ── HIGH DENSITY LOADS (updated each timestep by simulation) ──
+New Load.EVLoad  phases=3 bus1=Bus18 kv=12.66 kW=100   kvar=15   model=1
+New Load.AILoad  phases=3 bus1=Bus33 kv=12.66 kW=100   kvar=10   model=1
+
+! ── SOLUTION SETTINGS ──
+Set VoltageBases=[12.66]
+CalcVoltageBases
+Set Mode=Snapshot
+Set ControlMode=Static
+Set MaxIter=100
+
+Solve

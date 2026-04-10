@@ -18,9 +18,9 @@ import numpy as np
 
 # ─────────────────────────────────────────────────────────────────────────────
 # helper function: ev demand curve
-# returns a multiplier between 0 and 1 based on time of day.
-# i modelled two daily peaks — one in the morning when people plug in
-# before work, and one in the evening when they come home.
+# returns a multiplier between 0 and 1 based on time of day 
+# i modelled two daily peaks one being int he morning when people leave for work and plug in their cars
+# before work, and one in the evening when they come home
 # this matches real ev charging behaviour from the lit review done previously 
 # ─────────────────────────────────────────────────────────────────────────────
 def ev_demand_curve(timestep):

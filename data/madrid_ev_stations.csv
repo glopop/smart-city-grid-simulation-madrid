@@ -1,0 +1,55 @@
+ID_Punto,DISTRITO,BARRIO,UBICACION,EMPLAZAMIENTO,N_EQUIPOS,POTENCIA_KW,OPERADOR
+03 VP,Arganzuela,Imperial,Calle Chulapos s/n,Via publica,1,50,IBERDROLA
+04 VP,Arganzuela,Palos de Moguer,Ronda de Valencia 1,Via publica,1,50,WENEA
+06 VP,Retiro,Adelfas,Calle Cerro de la Plata 4,Via publica,1,50,TOTALENERGIES
+08 VP,Retiro,Jeronimos,"Calle Alfonso XII, 2",Via publica,1,50,TOTALENERGIES
+10 VP,Salamanca,Recoletos,Calle Goya 36,Via publica,1,50,TOTALENERGIES
+11 VP,Salamanca,Goya,Calle Goya 123,Via publica,1,50,IBERDROLA
+12 VP,Salamanca,Castellana,Calle Castello 105,Via publica,1,50,WENEA
+13 VP,Salamanca,Castellana,Calle Velazquez 74,Via publica,1,50,WENEA
+14 VP,Salamanca,Castellana,Paseo Castellana 52,Via publica,1,50,TOTALENERGIES
+15 VP,Chamartin,El Viso,Paseo Castellana 106,Via publica,1,50,TOTALENERGIES
+16 VP,Chamartin,Hispanoamerica,Paseo Castellana 160,Via publica,2,100,WENEA
+17 VP,Chamartin,Castilla,Calle Cardenal Marcelo Spinola 6,Via publica,1,50,IBERDROLA
+18 VP,Chamberi,Arapiles,Calle Fernandez de los Rios 42,Via publica,1,50,WENEA
+19 VP,Chamberi,Arapiles,Plaza del Conde de Valle de Suchil,Via publica,1,50,IBERDROLA
+20 VP,Chamberi,Trafalgar,Calle Fuencarral 114,Via publica,1,50,TOTALENERGIES
+21 VP,Chamberi,Trafalgar,Calle Manuel Silvela 16,Via publica,1,50,TOTALENERGIES
+22 VP,Chamberi,Trafalgar,Calle Santa Engracia 115,Via publica,1,50,IBERDROLA
+23 VP,Chamberi,Almagro,Paseo Castellana 33,Via publica,1,50,WENEA
+24 VP,Fuencarral-El Pardo,La Paz,Calle de Sinesio Delgado 2,Via publica,1,50,IBERDROLA
+25 VP,Ciudad Lineal,San Juan Bautista,Calle Bueso Pineda 29,Via publica,1,50,TOTALENERGIES
+26 VP,Salamanca,Guindalera,"Calle de Roberto Domingo, 4",Via publica,2,150,WENEA
+27 VP,Arganzuela,Imperial,Paseo Imperial,Via publica,2,150,TOTALENERGIES
+32 PropDG,Vicalvaro,Valdebernardo,"Bulevar Jose Prat, 27A",Via publica,3,100,IBERDROLA
+1 PropDG,Arganzuela,Palos de Moguer,"Calle del General Lacy, 21",Via publica,3,100,TOTALENERGIES
+3 PropDG,Retiro,Adelfas,"Calle de Luis Peidro, 11",Via publica,3,100,IBERDROLA
+5 PropDG,Tetuan,Bellas Vistas,"Calle Pamplona, 63",Via publica,3,100,TOTALENERGIES
+7 PropDG,Chamberi,Vallehermoso,"Calle Santander, 5",Via publica,3,100,IBERDROLA
+10 PropDG,Moncloa-Aravaca,Valdemarin,"Camino de la Zarzuela, 25",Via publica,3,100,IBERDROLA
+11 PropDG,Moncloa-Aravaca,Arguelles,"Calle Buen Suceso, 27",Via publica,3,100,TOTALENERGIES
+12 PropDG,Latina,Aguilas,Calle Guarena cv av Aguilas,Via publica,3,100,IBERDROLA
+13 PropDG,Carabanchel,Vista Alegre,"Calle del Parque Eugenia de Montijo, 36",Via publica,3,100,IBERDROLA
+15 PropDG,Carabanchel,Abrantes,"Avenida de Abrantes, 57",Via publica,3,100,TOTALENERGIES
+17 PropDG,Usera,Zofio,"Travesia Santona, 4",Via publica,3,100,IBERDROLA
+18 PropDG,Usera,Almendrales,"Avenida de Cordoba, 9",Via publica,3,100,TOTALENERGIES
+20 PropDG,Puente de Vallecas,Palomeras Sureste,"Calle San Claudio, 154",Via publica,3,100,TOTALENERGIES
+21 PropDG,Moratalaz,Media Legua,C/Carmen Amaya 12,Via publica,3,100,TOTALENERGIES
+22 PropDG,Moratalaz,Pavones,Calle Hacienda de Pavones 231,Via publica,3,100,IBERDROLA
+24 PropDG,Ciudad Lineal,San Pascual,"Calle Esteban Mora, 43",Via publica,3,100,IBERDROLA
+27 PropDG,Hortaleza,Pinar del Rey,Glorieta De Sandro Pertini,Via publica,3,100,IBERDROLA
+30 PropDG,Villaverde,Los Rosales,Calle de Santa Florencia,Via publica,3,100,IBERDROLA
+31 PropDG,Villaverde,San Cristobal,Calle Godella 116,Via publica,3,100,TOTALENERGIES
+34 PropDG,Vicalvaro,Casco historico,"Calle Villardondiego, 34",Via publica,3,100,TOTALENERGIES
+35 PropDG,Vicalvaro,Valderrivas,"Calle de Minerva, 17",Via publica,3,100,TOTALENERGIES
+36 PropDG,Vicalvaro,Casco historico,Paseo Polideportivo s/n,Via publica,3,100,TOTALENERGIES
+ELEC-001,Vicalvaro,Casco historico,Calle Pirotecnia 47,Electrolinera,17,210,ACCIONA
+01 EMT,Centro,Sol,Plaza de Jacinto Benavente 6,Aparcamiento,1,50,EMT
+02 EMT,Salamanca,Recoletos,Jardines del Descubrimiento,Aparcamiento,4,50,EMT
+03 EMT,Salamanca,Lista,Plaza de Marques de Salamanca,Aparcamiento,2,50,EMT
+04 EMT,Chamartin,Castilla,Calle Hiedra 36,Aparcamiento,2,50,EMT
+05 EMT,Centro,Sol,Calle Alcala 17,Aparcamiento,12,200,EMT
+06 EMT,Salamanca,Recoletos,Paseo Recoletos 4,Aparcamiento,2,50,EMT
+09 PRIV,Barajas,Corralejos,Avenida del Consejo de Europa 2,Estacion de servicio,4,350,GIC/CEPSA
+14 PRIV,Villa de Vallecas,Casco Historico,Calle 29 Mercamadrid,Aparcamiento,1,180,DRIVE THE CITY
+8 MerM,Villa de Vallecas,Casco Historico,Mercamadrid Parcela C2,Mercamadrid,1,150,N/A
