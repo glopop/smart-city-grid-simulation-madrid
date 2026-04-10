@@ -16,46 +16,16 @@ Results are explored through an interactive browser dashboard — no code requir
 
 ## Running the Dashboard
 
-Follow these steps exactly in order.
-
----
-
 ### Step 1 — Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/capstoneproject.git
-cd capstoneproject
+git clone https://github.com/glopop/smart-city-grid-simulation-madrid.git
+cd smart-city-grid-simulation-madrid
 ```
 
 ---
 
-### Step 2 — Check your Python version
-
-```bash
-python --version
-```
-
-You need **Python 3.11**. If you see 3.12 or anything else, install 3.11 using pyenv:
-
-```bash
-# Install pyenv if you don't have it (macOS)
-brew install pyenv
-
-# Install Python 3.11
-pyenv install 3.11.9
-
-# Set it as the local version for this project
-pyenv local 3.11.9
-
-# Confirm it worked
-python --version   # should now say Python 3.11.9
-```
-
----
-
-### Step 3 — Create a virtual environment
-
-A virtual environment keeps this project's dependencies separate from everything else on your machine. You only do this once.
+### Step 2 — Create a virtual environment
 
 ```bash
 python -m venv venv
@@ -63,7 +33,7 @@ python -m venv venv
 
 ---
 
-### Step 4 — Activate the virtual environment
+### Step 3 — Activate the virtual environment
 
 ```bash
 # macOS / Linux
@@ -75,32 +45,32 @@ venv\Scripts\activate
 
 You will see `(venv)` appear at the start of your terminal line. This means it is active.
 
-> **Important:** every time you open a new terminal window you need to run this activate command again before running anything. If the dashboard gives an import error, this is almost always why.
+> Every time you open a new terminal you need to run this activate command again before running anything.
 
 ---
 
-### Step 5 — Install dependencies
+### Step 4 — Install dependencies
 
 ```bash
 pip install numpy==1.26.4
 pip install -r requirements.txt
 ```
 
-numpy is installed first separately to avoid version conflicts. This will take 2-3 minutes.
+This will take 2-3 minutes.
 
 ---
 
-### Step 6 — Run the dashboard
+### Step 5 — Run the dashboard
 
 ```bash
 python dashboard/dashboard.py
 ```
 
-Then open your browser and go to:
+Then open your browser and go to (if the 8050 port is occupied, the link will be modified for your port, refer to the Troubleshooting section below):
 
 **http://127.0.0.1:8050**
 
-Use the dropdown on the left to switch between Low, Medium, and High Stress scenarios. All results load instantly from the pre-computed file included in the repo — nothing else needs to run.
+Use the dropdown on the left to switch between Low, Medium, and High Stress scenarios. All results load instantly — nothing else needs to run.
 
 ---
 
@@ -112,8 +82,7 @@ The dashboard already includes pre-computed results. Only do this if you want to
 ```bash
 python simulation/main.py
 ```
-
-Runs medium stress by default. To change scenario, edit the name at the bottom of `main.py`.
+Runs medium stress by default. To change it, edit the scenario name at the bottom of `main.py`.
 
 **All scenarios in parallel (requires Open MPI):**
 
@@ -133,37 +102,39 @@ mpirun -n 2 python hpc/parallel_scenarios.py
 
 > MPI runs use 960 timesteps (10-day horizon). The dashboard uses 96 timesteps (1 day). Do not mix the two.
 
+
+> The HPC scaling results reported in the paper (16.6s baseline, 2.31× speedup 
+> at 2 processes) were produced on Kaggle's cloud environment with 2 physical 
+> CPU cores. Running locally will produce different runtimes but the same 
+> simulation outputs.
 ---
 
 ## Troubleshooting
 
 **`(venv)` is not showing in my terminal**
-You need to activate the virtual environment. Run `source venv/bin/activate` (macOS/Linux) or `venv\Scripts\activate` (Windows) from inside the project folder.
+Run `source venv/bin/activate` (macOS/Linux) or `venv\Scripts\activate` (Windows) from inside the project folder. This must be done every new terminal session.
 
 **Installation fails or stops midway**
-Make sure you ran `pip install numpy==1.26.4` first before `pip install -r requirements.txt`. Also make sure your virtual environment is activated.
-
-**Wrong Python version**
-Run `python --version` inside your activated venv. If it is not 3.11, follow Step 2 again and make sure you ran `pyenv local 3.11.9` inside the project folder.
+Make sure `pip install numpy==1.26.4` ran successfully before `pip install -r requirements.txt`, and that your venv is activated.
 
 **Dashboard opens but is blank**
-Make sure `simulation_results.csv` is present in the root of the project folder. It should be included in the repo — if it is missing, run `python simulation/main.py` first to generate it.
+`simulation_results.csv` must be in the project root. It is included in the repo. If missing, run `python simulation/main.py` to regenerate it.
 
 **Port 8050 already in use**
-Something else is running on that port. Either close it, or change the port at the bottom of `dashboard/dashboard.py`:
+Change the port at the bottom of `dashboard/dashboard.py`:
 ```python
 app.run(debug=True, port=8051)
 ```
-Then go to http://127.0.0.1:8051 instead.
+Then go to **http://127.0.0.1:8051**.
 
 ---
 
 ## Project Structure
 
 ```
-capstoneproject/
+smart-city-grid-simulation-madrid/
 ├── README.md
-├── requirements.txt
+├── requirements.txt             ← all dependencies
 ├── simulation_results.csv       ← pre-computed results, loaded by the dashboard
 │
 ├── simulation/
@@ -224,7 +195,7 @@ capstoneproject/
 
 | Component | Version |
 |---|---|
-| Python | 3.11 |
+| Python | 3.11+ |
 | Mesa | 3.3.1 |
 | OpenDSSDirect.py | 0.9.4 |
 | PuLP | 3.3.0 |
