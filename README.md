@@ -16,7 +16,20 @@ Results are explored through an interactive browser dashboard — no code requir
 
 ## Running the Dashboard
 
+Follow these steps exactly in order.
+
+---
+
 ### Step 1 — Clone the repository
+
+Use SSH if you already have GitHub SSH set up:
+
+```bash
+git clone git@github.com:glopop/smart-city-grid-simulation-madrid.git
+cd smart-city-grid-simulation-madrid
+```
+
+Or use HTTPS:
 
 ```bash
 git clone https://github.com/glopop/smart-city-grid-simulation-madrid.git
@@ -25,15 +38,55 @@ cd smart-city-grid-simulation-madrid
 
 ---
 
-### Step 2 — Create a virtual environment
+### Step 2 — Check your Python version
+
+```bash
+python --version
+```
+
+If `python` is not found on your machine, try:
+
+```bash
+python3 --version
+```
+
+You need **Python 3.11 or 3.12**. If you are on an earlier version, install 3.11 using pyenv:
+
+```bash
+# Install pyenv if you don't have it (macOS)
+brew install pyenv
+
+# Install Python 3.11
+pyenv install 3.11.9
+
+# Set it as the local version for this project
+pyenv local 3.11.9
+
+# Confirm it worked
+python --version   # should now say Python 3.11.9
+```
+
+---
+
+### Step 3 — Create a virtual environment
+
+A virtual environment keeps this project's dependencies separate from everything else on your machine. You only do this once.
+
+If `python --version` works:
 
 ```bash
 python -m venv venv
 ```
 
+If you use `python3` instead of `python`:
+
+```bash
+python3 -m venv venv
+```
+
 ---
 
-### Step 3 — Activate the virtual environment
+### Step 4 — Activate the virtual environment
 
 ```bash
 # macOS / Linux
@@ -45,32 +98,32 @@ venv\Scripts\activate
 
 You will see `(venv)` appear at the start of your terminal line. This means it is active.
 
-> Every time you open a new terminal you need to run this activate command again before running anything.
+> **Important:** every time you open a new terminal window you need to run this activate command again before running anything. If the dashboard gives an import error, this is almost always why.
 
 ---
 
-### Step 4 — Install dependencies
+### Step 5 — Install dependencies
 
 ```bash
 pip install numpy==1.26.4
 pip install -r requirements.txt
 ```
 
-This will take 2-3 minutes.
+numpy is installed first separately to avoid version conflicts. This will take 2-3 minutes.
 
 ---
 
-### Step 5 — Run the dashboard
+### Step 6 — Run the dashboard
 
 ```bash
 python dashboard/dashboard.py
 ```
 
-Then open your browser and go to (if the 8050 port is occupied, the link will be modified for your port, refer to the Troubleshooting section below):
+Then open your browser and go to:
 
 **http://127.0.0.1:8050**
 
-Use the dropdown on the left to switch between Low, Medium, and High Stress scenarios. All results load instantly — nothing else needs to run.
+Use the dropdown on the left to switch between Low, Medium, and High Stress scenarios. All results load instantly from the pre-computed file included in the repo — nothing else needs to run.
 
 ---
 
@@ -79,34 +132,43 @@ Use the dropdown on the left to switch between Low, Medium, and High Stress scen
 The dashboard already includes pre-computed results. Only do this if you want to regenerate them from scratch.
 
 **Single scenario:**
+
 ```bash
 python simulation/main.py
 ```
-Runs medium stress by default. To change it, edit the scenario name at the bottom of `main.py`.
+
+Runs the medium stress scenario by default. To change which scenario runs, edit the scenario name at the bottom of `simulation/main.py`.
 
 **All scenarios in parallel (requires Open MPI):**
 
-Install Open MPI first:
-```bash
-# macOS
-brew install open-mpi
+If installation failed earlier on `mpi4py`, install Open MPI first, then reinstall dependencies:
 
-# Ubuntu / Debian
+macOS:
+```bash
+brew install open-mpi
+```
+
+Ubuntu / Debian:
+```bash
 sudo apt-get install openmpi-bin libopenmpi-dev
 ```
 
-Then:
+Then rerun:
 ```bash
-mpirun -n 2 python hpc/parallel_scenarios.py
+pip install -r requirements.txt
 ```
 
-> MPI runs use 960 timesteps (10-day horizon). The dashboard uses 96 timesteps (1 day). Do not mix the two.
+Then run the parallel scenarios:
+```bash
+mpirun -n 2 python hpc/parallel_scenarios.py   # recommended — best efficiency
+mpirun -n 1 python hpc/parallel_scenarios.py   # sequential baseline
+mpirun -n 3 python hpc/parallel_scenarios.py   # 3 processes (lower efficiency due to load imbalance)
+```
 
+> **Important:** MPI runs use **960 timesteps** (10-day horizon). The dashboard uses **96 timesteps** (24-hour simulation). Do not use MPI output to feed the dashboard — they are separate result sets.
 
-> The HPC scaling results reported in the paper (16.6s baseline, 2.31× speedup 
-> at 2 processes) were produced on Kaggle's cloud environment with 2 physical 
-> CPU cores. Running locally will produce different runtimes but the same 
-> simulation outputs.
+> The scaling results reported in the paper (16.6s baseline, 2.31× speedup at 2 processes) were produced on Kaggle's cloud environment with 2 physical CPU cores. Running locally will produce different runtimes but identical simulation outputs. The Kaggle runner script is at `hpc/kaggle_hpc_runner.py`.
+
 ---
 
 ## Troubleshooting
@@ -115,16 +177,36 @@ mpirun -n 2 python hpc/parallel_scenarios.py
 Run `source venv/bin/activate` (macOS/Linux) or `venv\Scripts\activate` (Windows) from inside the project folder. This must be done every new terminal session.
 
 **Installation fails or stops midway**
-Make sure `pip install numpy==1.26.4` ran successfully before `pip install -r requirements.txt`, and that your venv is activated.
+Make sure you ran `pip install numpy==1.26.4` first before `pip install -r requirements.txt`, and that your virtual environment is activated.
+
+**Wrong Python version**
+Run `python --version` inside your activated venv. If it is below 3.11, follow Step 2 again to install the correct version.
+
+**`pyenv local` worked but `python` is still the wrong version**
+Your shell may not be picking up pyenv correctly. As a fallback, create the virtual environment directly with the Python 3.11 interpreter:
+
+```bash
+~/.pyenv/versions/3.11.9/bin/python -m venv venv
+```
+
+Then use the venv directly:
+
+```bash
+venv/bin/pip install numpy==1.26.4
+venv/bin/pip install -r requirements.txt
+venv/bin/python dashboard/dashboard.py
+```
 
 **Dashboard opens but is blank**
-`simulation_results.csv` must be in the project root. It is included in the repo. If missing, run `python simulation/main.py` to regenerate it.
+`simulation_results.csv` must be in the project root folder. It is included in the repo. If it is missing, run `python simulation/main.py` first to generate it.
 
-**Port 8050 already in use**
-Change the port at the bottom of `dashboard/dashboard.py`:
+**Port 8050 is already in use**
+Something else is running on that port. Change the port at the bottom of `dashboard/dashboard.py`:
+
 ```python
 app.run(debug=True, port=8051)
 ```
+
 Then go to **http://127.0.0.1:8051**.
 
 ---
@@ -138,9 +220,9 @@ smart-city-grid-simulation-madrid/
 ├── simulation_results.csv       ← pre-computed results, loaded by the dashboard
 │
 ├── simulation/
-│   ├── agents.py                ← EVHubAgent and DataCenterAgent
+│   ├── agents.py                ← EVHubAgent and DataCenterAgent (Mesa 3.3.1)
 │   ├── scenarios.py             ← scenario parameters
-│   └── main.py                  ← single-scenario runner
+│   └── main.py                  ← single-scenario runner (medium stress by default)
 │
 ├── grid/
 │   ├── grid_model.py            ← IEEE 33-bus feeder definition
@@ -151,17 +233,18 @@ smart-city-grid-simulation-madrid/
 │   └── scheduler.py             ← PuLP binary MILP load scheduler
 │
 ├── hpc/
-│   ├── parallel_scenarios.py    ← MPI parallel execution
-│   └── analyze_scaling.py       ← speedup and efficiency analysis
+│   ├── parallel_scenarios.py    ← MPI parallel execution (960 timesteps, 10-day horizon)
+│   ├── analyze_scaling.py       ← speedup and efficiency analysis
+│   └── kaggle_hpc_runner.py     ← script used to produce scaling results on Kaggle
 │
 ├── dashboard/
-│   └── dashboard.py             ← Plotly Dash dashboard
+│   └── dashboard.py             ← Plotly Dash interactive dashboard
 │
 └── data/
-    ├── madrid_ev_stations.csv   ← Ayuntamiento de Madrid EV registry
+    ├── madrid_ev_stations.csv   ← Ayuntamiento de Madrid EV registry (195 units)
     ├── madrid_municipal_ev.csv  ← Municipal EV charging data
-    ├── ree_demand_madrid.csv    ← Red Eléctrica de España demand data
-    └── real_data_analysis.py    ← calibration script
+    ├── ree_demand_madrid.csv    ← Red Eléctrica de España hourly demand
+    └── real_data_analysis.py    ← calibration script (Pearson r = 0.554)
 ```
 
 ---
@@ -189,13 +272,15 @@ smart-city-grid-simulation-madrid/
 | high_stress | 8 | 3 | 0.25 | 1.50 | 25% |
 | extreme_stress | 12 | 4 | 0.40 | 2.50 | 35% |
 
+All demand values are in MW and converted to kW before OpenDSS injection. Parameters are scaled to the operational limits of the 12.66 kV IEEE 33-bus feeder.
+
 ---
 
 ## Tech Stack
 
 | Component | Version |
 |---|---|
-| Python | 3.11+ |
+| Python | 3.11 or 3.12 |
 | Mesa | 3.3.1 |
 | OpenDSSDirect.py | 0.9.4 |
 | PuLP | 3.3.0 |
