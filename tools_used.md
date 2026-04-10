@@ -164,29 +164,16 @@ capstoneproject/
 ## Key Design Decisions
 
 **Mesa over custom ABM:**
-Mesa 3.3.1 provides standardised agent scheduling, reproducible random state
-management, and a clean API that integrates directly with NumPy and OpenDSS.
-Both NumPy and Mesa random states seeded independently at value 42.
+Mesa 3.3.1 was chosen rather than writing an agent-based model from scratch because it already handles a lot of the difficult parts, like agent scheduling and managing randomness. It also works well with NumPy and integrates cleanly with the rest of the simulation. One important detail was making sure both NumPy and Mesa random states were seeded separately (using 42) to keep results reproducible. 
 
 **OpenDSS over pandapower:**
-OpenDSS is the industry-standard distribution system simulator used by
-utilities worldwide. Provides physically validated power flow at distribution
-level. The IEEE 33-bus feeder file was constructed from Baran & Wu 1989
-published data as no stable OpenDSS-formatted version exists publicly.
+OpenDSS was selected because it is widely used in industry and gives reliable results for distribution-level power flow. It also fits well with the type of analysis this project needs. The IEEE 33-bus feeder model had to be built manually from the original Baran & Wu (1989) paper, since there isn’t a stable OpenDSS version available publicly.
 
 **Quasi-static over transient simulation:**
-15-minute timesteps are appropriate for urban planning timescales and
-computationally feasible for parallel execution. Transient simulation
-requires sub-second timesteps and is outside distribution-level planning scope.
+The simulation uses 15-minute timesteps, which makes sense for planning scenarios and keeps the computational cost manageable. Transient simulations (with sub-second resolution) would be much more complex and aren’t really necessary for the kind of long-term planning questions this project is focused on.
 
 **Scenario-parallel MPI over spatial decomposition:**
-The three scenarios share no state and require no inter-process communication,
-making scenario-parallel execution the natural and efficient strategy.
-Spatial decomposition of the IEEE 33-bus feeder would require significant
-restructuring of the OpenDSS integration without meaningful benefit at this scale.
+Since each scenario runs independently and doesn’t need to communicate with others, it made more sense to parallelise across scenarios rather than split the grid itself. This keeps the implementation simple and efficient. Splitting the IEEE 33-bus network spatially would have required major changes to how OpenDSS is used, without much benefit for a model of this size.
 
 **Quantum layer is designed only, not implemented:**
-The QUBO formulation is designed at the architectural level for future
-QAOA-based benchmarking against the PuLP classical baseline.
-No Qiskit code has been written. All quantum language in the report
-uses: designed, exploratory, planned, or pending.
+The quantum optimisation part is included as a design idea for future work rather than something fully built. The scheduling problem has been formulated in a way that could be used with QAOA, but no actual Qiskit implementation has been written yet. In the report, this is clearly described as planned or exploratory rather than completed.
