@@ -1,6 +1,4 @@
-# Smart City Grid Simulation — Technical Stack Reference
-# Gloria Paraschivoiu · IE University · April 2026
-# Corrected to match simulation_results.csv and report Table 2/Table 3
+## Smart City Grid Simulation — Technical Stack Reference
 
 ---
 
